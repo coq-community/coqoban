@@ -29,9 +29,9 @@ Now you can play easily without needing Proof General too, e.g.:
 
 -------
 bash-2.05b $ coqtop -I .
-Welcome to Coq 7.4 (Feb 2003)
+Welcome to Coq 8.0 (Apr 2004)
 
-Coq < Require Coqoban_levels.
+Coq < Require Import Coqoban_levels.
 -------
 
 
@@ -67,32 +67,31 @@ Coq < Goal (solvable Level_274).
   ============================
    (solvable Level_274)
 
-Unnamed_thm < Unfold Level_274. (* Optional but useful *)
+Unnamed_thm < unfold Level_274. (* Optional but useful *)
 1 subgoal
 
   ============================
-   (solvable
+   solvable
      |> # # # # # # # # # # # # # # <|
-     |> # - - - - - - # - - - - - # <|
-     +> # - x + x x - # - O - O O # <|
-     |> # # - # # - # # # - # # - # <|
-     |> - # - # - - - - - - - # - # <|
-     |> - # - # - - - # - - - # - # <|
-     |> - # - # # # # # # # # # - # <|
-     |> - # - - - - - - - - - - - # <|
-     |> - # # # # # # # # # # # # # <|
+     |> # _ _ _ _ _ _ # _ _ _ _ _ # <|
+     +> # _ X + X X _ # _ O _ O O # <|
+     |> # # _ # # _ # # # _ # # _ # <|
+     |> _ # _ # _ _ _ _ _ _ _ # _ # <|
+     |> _ # _ # _ _ _ # _ _ _ # _ # <|
+     |> _ # _ # # # # # # # # # _ # <|
+     |> _ # _ _ _ _ _ _ _ _ _ _ _ # <|
+     |> _ # # # # # # # # # # # # # <|
      |><|
-     )
 -------
 
 Boards are represented by rows between |> and <|. Other signs:
-- = open field
+_ = open field
 # = wall
 + = YOU
 O = destination square
-x = box
-@ = a box on a destination square
-% = YOU, on a destination square
+X = box
+* = a box on a destination square
+o = YOU, on a destination square
 
 
 
@@ -104,7 +103,7 @@ w. (step/push west)
 
 These apply even if there's a wall in the way. You can also use Coq
 tacticals, e.g.
-Do 5 n.
+do 5 n.
 Undo 3.
 Restart.
 Abort.
@@ -113,9 +112,11 @@ By the by. I'd like to hear if anyone has written a Coqoban-playing tactic that
 solves Coqoban goals automatically...
 
 Goal (solvable Level_83).
-Unfold Level_83.
+unfold Level_83.
 MyCoqobanTactic.
 Qed.
 
 Share and enjoy!
 Jasper Stein (jasper@cs.kun.nl)
+
+(Compatibility with Coq 8.0 by HH)
