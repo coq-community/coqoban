@@ -1,0 +1,8 @@
+Name: Coqoban
+Title: Coqoban (Sokoban)
+Author: Jasper Stein
+Institution: Katholieke Universiteit Nijmegen
+Date: 19 september 2003
+Description: A Coq implementation of Sokoban, the Japanese warehouse 
+keepers' game
+Keywords: Sokoban game games
