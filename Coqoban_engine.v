@@ -41,39 +41,6 @@ Inductive Board : Type :=
 (* See below for examples *)
 
 (* Printing *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-(* <Warning> : Syntax is discontinued *)
-
-(* Parsing *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-
-(* Coq needs extra space after alphanumeric characters (ie, x and O), otherwise
-   we get parsing errors. This should be no problem as the playing boards look
-   better if we add a space after every character anyway... *)
-
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-(* <Warning> : Grammar is replaced by Notation *)
-
-(* <Warning> : Grammar is replaced by Notation *)
-
 
 
 (* To define when the game is over. I use the simplest rule:
@@ -279,42 +246,36 @@ Ltac s :=
 Ltac w :=
   apply STEP with We; simpl in |- *; try (apply OK; simpl in |- *; tauto).
 
+(* Notations *)
+Notation "'_' a" := (C Empty a) (at level 0, right associativity).
+Notation "#  a" := (C Wall a) (at level 0, right associativity).
+Notation "+ a" := (C Keeper a) (at level 0, right associativity).
+Notation "'X' a" := (C Box a) (at level 0, right associativity).
+Notation "'O' a" := (C Dest a) (at level 0, right associativity).
+Notation "*  a" := (C Full a) (at level 0, right associativity).
+Notation "'o'  a" := (C KeepOD a) (at level 0, right associativity).
+Notation "<|" := Nil (at level 0).
+
+Notation "|> a b" := (R a b)
+  (format "'[v' |>  a '/' b ']'", at level 0, a, b at level 0).
+Notation "+> a b" := (K a b)
+  (format "'[v' +>  a '/' b ']'", at level 0, a, b at level 0).
+Notation "|><|" := Nothing (format "|><| '//'", at level 0).
 
 (* A silly example *)
 
 Definition b :=
-   
-  (* In contrast to what I said above, it's not +always+ necessary to include spaces *)
-  R (C Wall (C Wall (C Wall (C Wall (C Wall (C Wall (C Wall Nil)))))))
-    (R
-       (C Wall (C Empty (C Empty (C Empty (C Empty (C Empty (C Wall Nil)))))))
-       (K
-          (C Wall
-             (C Empty
-                (C Keeper
-                   (C Box
-                      (C Empty
-                         (C Empty
-                            (C Wall Nil) (* Note : the row containing the keeper (+) must be indicated *)
-                          ))))))
-          (R
-             (C Wall
-                (C Empty
-                   (C Empty
-                      (C Empty
-                         (C Empty
-                            (C Empty
-                               (C Wall Nil) (*        by +> instead of |>  (constructor K instead of R)  *)
-                             ))))))
-             (R
-                (C Wall
-                   (C Empty
-                      (C Empty (C Empty (C Empty (C Dest (C Wall Nil)))))))
-                (R
-                   (C Wall
-                      (C Wall
-                         (C Wall (C Wall (C Wall (C Wall (C Wall Nil)))))))
-                   Nothing))))).
+  |> # # # # # # # <|
+  |> # _ _ _ _ _ # <|
+  +> #
+     _ +
+       X _ _ # <| (* Note: the row containing the keeper (+) must be indicated *)
+  |> #
+     _ _ _ _ _ # <| (*       by +> instead of |>  (constructor K instead of R)  *)
+  |> # _ _ _ _ O # <|
+  |> # # # # # # # <|
+  |><|
+  .
 
 Goal solvable b.
 unfold b in |- *.
@@ -338,14 +299,15 @@ Save solution'_b.
 Print solution'_b. (* Look at the start of this term! *)
 
 Definition microban_1 :=
-  R (C Wall (C Wall (C Wall (C Wall Nil))))
-    (R (C Wall (C Empty (C Dest (C Wall Nil))))
-       (R (C Wall (C Empty (C Empty (C Wall (C Wall (C Wall Nil))))))
-          (K (C Wall (C Full (C Keeper (C Empty (C Empty (C Wall Nil))))))
-             (R (C Wall (C Empty (C Empty (C Box (C Empty (C Wall Nil))))))
-                (R
-                   (C Wall (C Empty (C Empty (C Wall (C Wall (C Wall Nil))))))
-                   (R (C Wall (C Wall (C Wall (C Wall Nil)))) Nothing)))))).
+  |> # # # # <|
+  |> # _ O # <|
+  |> # _ _ # # # <|
+  +> # *  + _ _ # <|
+  |> # _ _ X _ # <|
+  |> # _ _ # # # <|
+  |> # # # # <|
+  |><|
+  .
 
 Goal solvable microban_1.
 unfold microban_1 in |- *.
@@ -386,26 +348,19 @@ Save microban_1_solution.
 Print microban_1_solution.
 
 Definition microban_2 :=
-  R (C Wall (C Wall (C Wall (C Wall (C Wall (C Wall Nil))))))
-    (R (C Wall (C Empty (C Empty (C Empty (C Empty (C Wall Nil))))))
-       (K (C Wall (C Empty (C Wall (C Keeper (C Empty (C Wall Nil))))))
-          (R
-             (C Wall
-                (C Empty
-                   (C Box
-                      (C Full
-                          (* The amount of whitespace doesn't matter in creating the boards *)
-                         (C Empty
-                             (* as long as it's there in the proper places *)
-                            (C Wall Nil))))))
-             (R (C Wall (C Empty (C Dest (C Full (C Empty (C Wall Nil))))))
-                (R
-                   (C Wall
-                      (C Empty (C Empty (C Empty (C Empty (C Wall Nil))))))
-                   (R
-                      (C Wall
-                         (C Wall (C Wall (C Wall (C Wall (C Wall Nil))))))
-                      Nothing)))))).
+  |> # # # # # # <|
+  |> # _ _ _ _ # <|
+  +> # _ # + _ # <|
+  |> #
+     _ X * 
+          (* The amount of whitespace doesn't matter in creating the boards *)
+         _  (* as long as it's there in the proper places *)
+         # <|
+  |> # _ O *  _ # <|
+  |> # _ _ _ _ # <|
+  |> # # # # # # <|
+  |><|
+  .
 Print microban_2.
 
 Goal solvable microban_2.
