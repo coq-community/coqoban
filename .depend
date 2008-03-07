@@ -1,6 +1,0 @@
-Coqoban_engine.vo: Coqoban_engine.v
-Coqoban_engine.vi: Coqoban_engine.v
-Coqoban_levels.vo: Coqoban_levels.v ./Coqoban_engine.vo
-Coqoban_levels.vi: Coqoban_levels.v ./Coqoban_engine.vo
-Coqoban_engine.html: Coqoban_engine.v
-Coqoban_levels.html: Coqoban_levels.v ./Coqoban_engine.html
