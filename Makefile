@@ -17,14 +17,24 @@
 # coq_makefile -f Make -o Makefile 
 #
 
+#########################
+#                       #
+# Libraries definition. #
+#                       #
+#########################
+
+OCAMLLIBS:=
+COQLIBS:= -R . Coqoban
+COQDOCLIBS:=-R . Coqoban
+
 ##########################
 #                        #
 # Variables definitions. #
 #                        #
 ##########################
 
-CAMLP4LIB:=+camlp4
-CAMLP4:=/home/notin/exec/ocaml-3.09.3/bin/camlp4
+CAMLP4LIB:=$(shell $(CAMLBIN)camlp5 -where 2> /dev/null || $(CAMLBIN)camlp4 -where)
+CAMLP4:=$(notdir $(CAMLP4LIB))
 COQSRC:=-I $(COQTOP)/kernel -I $(COQTOP)/lib \
   -I $(COQTOP)/library -I $(COQTOP)/parsing \
   -I $(COQTOP)/pretyping -I $(COQTOP)/interp \
@@ -43,23 +53,13 @@ COQC:=$(COQBIN)coqc
 COQDEP:=$(COQBIN)coqdep -c
 GALLINA:=$(COQBIN)gallina
 COQDOC:=$(COQBIN)coqdoc
-CAMLC:=/home/notin/exec/ocaml-3.09.3/bin/ocamlc -rectypes -c
-CAMLOPTC:=/home/notin/exec/ocaml-3.09.3/bin/ocamlopt -c
-CAMLLINK:=/home/notin/exec/ocaml-3.09.3/bin/ocamlc
-CAMLOPTLINK:=/home/notin/exec/ocaml-3.09.3/bin/ocamlopt
+CAMLC:=$(CAMLBIN)ocamlc -rectypes -c
+CAMLOPTC:=$(CAMLBIN)ocamlopt -c
+CAMLLINK:=$(CAMLBIN)ocamlc
+CAMLOPTLINK:=$(CAMLBIN)ocamlopt
 GRAMMARS:=grammar.cma
 CAMLP4EXTEND:=pa_extend.cmo pa_macro.cmo q_MLast.cmo
-PP:=-pp "$(CAMLP4)o -I . -I $(COQTOP)/parsing $(CAMLP4EXTEND) $(GRAMMARS) -impl"
-
-#########################
-#                       #
-# Libraries definition. #
-#                       #
-#########################
-
-OCAMLLIBS:=
-COQLIBS:= -R . Coqoban
-COQDOCLIBS:=-R . Coqoban
+PP:=-pp "$(CAMLBIN)$(CAMLP4)o -I . -I $(COQTOP)/parsing $(CAMLP4EXTEND) $(GRAMMARS) -impl"
 
 ###################################
 #                                 #
@@ -110,7 +110,7 @@ all-gal.ps: $(VFILES)
 .SUFFIXES: .v .vo .vi .g .html .tex .g.tex .g.html
 
 %.vo %.glob: %.v
-	$(COQC) $(COQLIBS) -dump-glob $*.glob $(COQDEBUG) $(COQFLAGS) $*
+	$(COQC) -dump-glob $*.glob $(COQDEBUG) $(COQFLAGS) $*
 
 %.vi: %.v
 	$(COQC) -i $(COQDEBUG) $(COQFLAGS) $*
