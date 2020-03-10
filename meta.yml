@@ -67,38 +67,26 @@ documentation: |
   I would have liked to put a cedille underneath the "C", but I
   wasn't sure how to do that, or whether Coq could handle it.
   
-  Let's talk about installing the game.
+  Let's talk about running the game.
 
-  [Coqoban\_engine.v](Coqoban_engine.v) contains the actual sokoban
-  implementing script/program/data. It has a fair amount of remarks
-  explaining what's going on, for those interested to know more about
-  this implementation. Otherwise just compile it:
-  
-  ```bash
-  coqc Coqoban_engine.v
-  ```
-  
-  The file [Coqoban\_levels.v](Coqoban_levels.v) contains 355 levels
-  to be played with Coqoban\_engine.
+  * [Coqoban\_engine.v](Coqoban_engine.v) contains the actual sokoban
+      implementing script/program/data. It has a fair amount of
+      remarks explaining what's going on, for those interested to know
+      more about this implementation.
 
-  ProofGeneral users may just load this file into Emacs and play.
-  Still it can be useful to compile the levels:
-  
-  ```bash
-  coqc -I . Coqoban_levels.v
-  ```
-  
-  Now you can play easily without needing ProofGeneral too, e.g.:
-  
-  ```bash
-  $ coqtop -I .
-  Welcome to Coq 8.0 (Apr 2004)
-  
-  Coq < Require Import Coqoban_levels.
-  ```
+      You may just load this file into your favorite Coq editor and play.
+
+  * [Coqoban\_levels.v](Coqoban_levels.v) contains 355 levels to be
+      played with `Coqoban_engine`.
+
+      So you might want to import these levels:
+
+      ```coq
+      From Coqoban Require Import Coqoban_levels.
+      ```
   
   The levels are called `Level_1` up to `Level_355`. From
-  [Coqoban\_levels.v](Coqoban_levels.v)`:
+  [Coqoban\_levels.v](Coqoban_levels.v):
   
   ```coq
   (* These Sokoban levels I have taken from the game KSokoban and include all of the *)
