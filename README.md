@@ -94,13 +94,13 @@ The levels are called `Level_1` up to `Level_355`. From
 (* Sasquatch (1-50), Mas Sasquatch (51-100), Sasquatch III (101-150), Microban *)
 (* (151-305), and Sasquatch IV (306-355) collections. These collections are made by *)
 
-(* David W. Skinner (sasquatch@betonrea.com) http://users.betonrea.com/~sasquatch/  *)
+(* David W. Skinner (sasquatch@bentonrea.com) http://users.bentonrea.com/~sasquatch/ *)
 ```
 
-There are more collections on his website. You can download them and transform 
-them into additional `Coqoban_levels`.v-like files using the Haskell-script 
-[ksoq2coqsok.hs](ksoq2coqsok.hs)... And obviously you can define your own
-new levels. Take care that Coq's lexer requires spaces after X's and O's!
+There are more collections on [this website](http://www.abelmartin.com/rj/sokobanJS/Skinner/David%20W.%20Skinner%20-%20Sokoban.htm).
+You can download them and transform them into additional `Coqoban_levels`.v-like files using the Haskell-script [ksoq2coqsok.hs](ksoq2coqsok.hs)...
+And obviously you can define your own new levels.
+Take care that Coq's lexer requires spaces after X's and O's!
 See [Coqoban\_engine.v](Coqoban_engine.v) for more details on parsing/printing.
 
 To play, say, e.g.:
