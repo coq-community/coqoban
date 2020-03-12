@@ -23,7 +23,7 @@ Require Export Coqoban_engine.
 (* (151-305), and Sasquatch IV (306-355) collections. These collections are made by *)
 
 
-(* David W. Skinner (sasquatch@betonrea.com) http://users.betonrea.com/~sasquatch/  *)
+(* David W. Skinner (sasquatch@bentonrea.com) http://users.bentonrea.com/~sasquatch/  *)
 
 
 
