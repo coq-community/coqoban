@@ -12,7 +12,7 @@ description: """
 A Coq implementation of Sokoban, the Japanese warehouse keepers'
 game."""
 
-build: [make "-j%{jobs}%"]
+build: [make "-j%{jobs}%" ]
 install: [make "install"]
 depends: [
   "ocaml" {>= "4.05.0"}
