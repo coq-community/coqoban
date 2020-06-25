@@ -16,6 +16,7 @@ jobs:
       matrix:
         image_version:
           - 'dev'
+          - '8.12'
           - '8.11'
           - '8.10'
       fail-fast: false
