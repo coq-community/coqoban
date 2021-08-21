@@ -1,12 +1,16 @@
+<!---
+This file was generated from `meta.yml`, please do not edit manually.
+Follow the instructions on https://github.com/coq-community/templates to regenerate.
+--->
 # Coqoban
 
-[![CI][action-shield]][action-link]
+[![Docker CI][docker-action-shield]][docker-action-link]
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Zulip][zulip-shield]][zulip-link]
 
-[action-shield]: https://github.com/coq-community/coqoban/workflows/CI/badge.svg?branch=master
-[action-link]: https://github.com/coq-community/coqoban/actions?query=workflow%3ACI
+[docker-action-shield]: https://github.com/coq-community/coqoban/workflows/Docker%20CI/badge.svg?branch=master
+[docker-action-link]: https://github.com/coq-community/coqoban/actions?query=workflow:"Docker%20CI"
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -31,7 +35,6 @@ game.
   - Érik Martin-Dorel ([**@erikmd**](https://github.com/erikmd))
 - License: [GNU Lesser General Public License v2.1 or later](LICENSE)
 - Compatible Coq versions: 8.10.0 or later
-- Compatible OCaml versions: 4.05.0 or later
 - Additional dependencies: none
 - Coq namespace: `Coqoban`
 - Related publication(s): none
@@ -70,7 +73,7 @@ wasn't sure how to do that, or whether Coq could handle it.
 
 Let's talk about running the game.
 
-* [Coqoban\_engine.v](Coqoban_engine.v) contains the actual sokoban
+* [Coqoban\_engine.v](Coqoban_engine.v) contains the actual Sokoban
     implementing script/program/data. It has a fair amount of
     remarks explaining what's going on, for those interested to know
     more about this implementation.
@@ -80,11 +83,10 @@ Let's talk about running the game.
 * [Coqoban\_levels.v](Coqoban_levels.v) contains 355 levels to be
     played with `Coqoban_engine`.
 
-    So you might want to import these levels:
-
-    ```coq
-    From Coqoban Require Import Coqoban_levels.
-    ```
+To import both the engine and levels in Coq:
+```coq
+From Coqoban Require Import Coqoban_levels.
+```
 
 The levels are called `Level_1` up to `Level_355`. From
 [Coqoban\_levels.v](Coqoban_levels.v):
@@ -93,14 +95,13 @@ The levels are called `Level_1` up to `Level_355`. From
 (* These Sokoban levels I have taken from the game KSokoban and include all of the *)
 (* Sasquatch (1-50), Mas Sasquatch (51-100), Sasquatch III (101-150), Microban *)
 (* (151-305), and Sasquatch IV (306-355) collections. These collections are made by *)
-
 (* David W. Skinner (sasquatch@bentonrea.com) http://users.bentonrea.com/~sasquatch/ *)
 ```
 
-There are more collections on [this website](http://www.abelmartin.com/rj/sokobanJS/Skinner/David%20W.%20Skinner%20-%20Sokoban.htm).
-You can download them and transform them into additional `Coqoban_levels`.v-like files using the Haskell-script [ksoq2coqsok.hs](ksoq2coqsok.hs)...
+There are more levels on [this website](http://www.abelmartin.com/rj/sokobanJS/Skinner/David%20W.%20Skinner%20-%20Sokoban.htm).
+You can download them and transform them into additional `Coqoban_levels`.v-like files using the Haskell program [ksoq2coqsok.hs](ksoq2coqsok.hs).
 And obviously you can define your own new levels.
-Take care that Coq's lexer requires spaces after X's and O's!
+Beware that Coq's lexer requires spaces after `X` and `O`!
 See [Coqoban\_engine.v](Coqoban_engine.v) for more details on parsing/printing.
 
 To play, say, e.g.:
