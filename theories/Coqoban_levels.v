@@ -13,10 +13,9 @@
 (* Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA *)
 (* 02110-1301 USA                                                     *)
 
-
 Set Implicit Arguments.
 Unset Strict Implicit.
-Require Export Coqoban_engine.
+From Coqoban Require Export Coqoban_engine.
 
 (* These Sokoban levels I have taken from the game KSokoban and include all of the *)
 (* Sasquatch (1-50), Mas Sasquatch (51-100), Sasquatch III (101-150), Microban *)

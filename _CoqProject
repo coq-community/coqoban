@@ -1,4 +1,4 @@
--R . Coqoban
+-Q theories Coqoban
 
-Coqoban_engine.v 
-Coqoban_levels.v 
+theories/Coqoban_engine.v
+theories/Coqoban_levels.v
