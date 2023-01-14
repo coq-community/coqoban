@@ -23,8 +23,8 @@ Follow the instructions on https://github.com/coq-community/templates to regener
 
 
 
-A Coq implementation of Sokoban, the Japanese warehouse keepers'
-game.
+A Coq implementation of Sokoban, the Japanese warehouse
+keeper's game.
 
 ## Meta
 
@@ -34,53 +34,53 @@ game.
 - Coq-community maintainer(s):
   - Érik Martin-Dorel ([**@erikmd**](https://github.com/erikmd))
 - License: [GNU Lesser General Public License v2.1 or later](LICENSE)
-- Compatible Coq versions: 8.10.0 or later
+- Compatible Coq versions: 8.10 or later
 - Additional dependencies: none
 - Coq namespace: `Coqoban`
 - Related publication(s): none
 
-## Building and installation instructions
+## Building instructions
 
-The easiest way to install the latest released version of Coqoban
-is via [OPAM](https://opam.ocaml.org/doc/Install.html):
+The recommended way to use Coqoban is to build the
+project locally:
+
+```shell
+git clone https://github.com/coq-community/coqoban.git
+cd coqoban
+make   # or make -j <number-of-cores-on-your-machine> 
+```
+
+However, you can also build and install the whole project via
+[opam](https://opam.ocaml.org/doc/Install.html):
 
 ```shell
 opam repo add coq-released https://coq.inria.fr/opam/released
 opam install coq-coqoban
 ```
 
-To instead build and install manually, do:
-
-``` shell
-git clone https://github.com/coq-community/coqoban.git
-cd coqoban
-make   # or make -j <number-of-cores-on-your-machine> 
-make install
-```
-
-
 ## Documentation
 
 Welcome to Coqoban!
 
 This is a Coq implementation of Sokoban, the Japanese
-warehouse-keeper game.  The keeper must push the boxes to specified
+warehouse keeper's game. The keeper must push the boxes to specified
 destination places. He can only push one box at a time, no more, and
 he can't pull. How to put the boxes in place?
 
-I would have liked to put a cedille underneath the "C", but I
-wasn't sure how to do that, or whether Coq could handle it.
+Thanks to [jsCoq](https://jscoq.github.io), you can play Coqoban
+[directly in your browser](https://coq.vercel.app/fun/coqoban.html)
+without installing Coq!
 
-Let's talk about running the game.
+If you want to install and run Coq and Coqoban locally:
 
-* [Coqoban\_engine.v](Coqoban_engine.v) contains the actual Sokoban
+* [Coqoban\_engine.v](theories/Coqoban_engine.v) contains the actual Sokoban
     implementing script/program/data. It has a fair amount of
     remarks explaining what's going on, for those interested to know
     more about this implementation.
 
     You may just load this file into your favorite Coq editor and play.
 
-* [Coqoban\_levels.v](Coqoban_levels.v) contains 355 levels to be
+* [Coqoban\_levels.v](theories/Coqoban_levels.v) contains 355 levels to be
     played with `Coqoban_engine`.
 
 To import both the engine and levels in Coq:
@@ -89,7 +89,7 @@ From Coqoban Require Import Coqoban_levels.
 ```
 
 The levels are called `Level_1` up to `Level_355`. From
-[Coqoban\_levels.v](Coqoban_levels.v):
+[Coqoban\_levels.v](theories/Coqoban_levels.v):
 
 ```coq
 (* These Sokoban levels I have taken from the game KSokoban and include all of the *)
@@ -99,12 +99,12 @@ The levels are called `Level_1` up to `Level_355`. From
 ```
 
 There are more levels on [this website](http://www.abelmartin.com/rj/sokobanJS/Skinner/David%20W.%20Skinner%20-%20Sokoban.htm).
-You can download them and transform them into additional `Coqoban_levels`.v-like files using the Haskell program [ksoq2coqsok.hs](ksoq2coqsok.hs).
+You can download them and transform them into additional `Coqoban_levels`.v-like files using the Haskell program [ksoq2coqsok.hs](src/ksoq2coqsok.hs).
 And obviously you can define your own new levels.
 Beware that Coq's lexer requires spaces after `X` and `O`!
-See [Coqoban\_engine.v](Coqoban_engine.v) for more details on parsing/printing.
+See [Coqoban\_engine.v](theories/Coqoban_engine.v) for more details on parsing/printing.
 
-To play, say, e.g.:
+To play, say, e.g.,
 
 ```coq
 Coq < Goal (solvable Level_274).
@@ -147,7 +147,7 @@ Tactics used to play Coqoban are:
 * `w.` (step/push west)
 
 These apply even if there's a wall in the way. You can also use Coq
-tacticals, e.g.
+tacticals, e.g.,
 
 ```coq
 do 5 n.

@@ -12,10 +12,10 @@ license: "LGPL-2.1-or-later"
 
 synopsis: "Coqoban (Sokoban in Coq)"
 description: """
-A Coq implementation of Sokoban, the Japanese warehouse keepers'
-game."""
+A Coq implementation of Sokoban, the Japanese warehouse
+keeper's game."""
 
-build: [make "-j%{jobs}%" ]
+build: [make "-j%{jobs}%"]
 install: [make "install"]
 depends: [
   "coq" {>= "8.10"}
@@ -24,7 +24,8 @@ depends: [
 tags: [
   "category:Miscellaneous/Logical Puzzles and Entertainment"
   "keyword:Sokoban"
-  "keyword:puzzles"
+  "keyword:puzzle"
+  "keyword:game"
   "logpath:Coqoban"
 ]
 authors: [
